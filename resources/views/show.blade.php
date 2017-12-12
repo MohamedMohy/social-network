@@ -38,7 +38,9 @@
                 <div class="modal-footer">
                     <center>
                     <button type="button" class="btn btn-default" data-dismiss="modal">I've heard enough!</button>
-                    </center>
+                    </center> 
+                    <a href="{{ route('friends') }}" class="btn btn-primary" role="button" aria-pressed="true">Friends</a>
+                    
                 </div>
             </div>
         </div>

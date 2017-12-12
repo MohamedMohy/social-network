@@ -1,5 +1,4 @@
 <?php
-
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
@@ -15,7 +14,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'fname','lname', 'email', 'password','bdate','gender'
+        'fname', 'lname', 'email', 'password', 'bdate', 'gender'
     ];
 
     /**
@@ -27,8 +26,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-     public function posts()
+    public function posts()
     {
         return $this->hasMany('App\Post');
     }
+
 }

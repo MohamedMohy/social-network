@@ -12,4 +12,10 @@ class UserController extends Controller
         return view('show',compact('posts'));
     }
 
+    public function friends(){
+    // {
+    //     $vard =DB::table('friendship')->where('user_one_id', User->id );
+    //     return view('friendlist',compact('vard'));
+    }
+
 }
