@@ -44,6 +44,15 @@
         </div>
     </div>
 
-    Here comes the posts
+        @foreach($posts as $post)
+            <div>
+            {{$post->body}}
+                <br>
+                {{$post->created_at}}
+            <br>
+            </div>
+            @endforeach
+
+
 </div>
 @endsection('content')

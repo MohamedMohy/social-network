@@ -18,8 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::post('/home', 'HomeController@posts')->name('home');
+Route::post('/home', 'PostsController@create');
+Route::get('/profile', 'UserController@index')->name('profile');
 
-Route::get('/profile', 'HomeController@show')->name('profile');
-Route::get('/friends','HomeController@friends')->name('friends');
 

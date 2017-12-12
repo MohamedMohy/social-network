@@ -29,18 +29,7 @@ class HomeController extends Controller
     {
         return view('home');
     }
-    public function posts(Request $request)
-    {
-        $post=new Post();
-        $post->userid=Auth::user()->id;
-        $post->body=$request->post;
-        $post->save();
-        $posts = auth()->user()->posts()->get();
-        dd($posts);
-        return view('home',compact($posts));
-    }
 
-    public function show(){
-        return view('show');
-    }
+
+
 }
