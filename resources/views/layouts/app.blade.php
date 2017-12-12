@@ -47,8 +47,17 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
-                        
-                        <li><a href="{{ route('profile') }}">Profile</a></li>
+                        <form class="navbar-form navbar-right" action ="{{ route('listingUsers')}}">
+                            <div class="input-group">
+                            <input type="text"  name ="searchtext" id="searchtext" class="form-control" placeholder="Search this site">
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-default">
+                                    Search
+                                    </button>
+                                </span>
+                            </div>
+                        </form>
+                        <li><a href="{{ route('profile',Auth::user()->id) }}">My Profile</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
                                     {{ Auth::user()->name }} <span class="caret"></span> Menu
