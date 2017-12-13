@@ -5,7 +5,12 @@
     <div class="span3 well">
         <center>
         <a href="#aboutModal" data-toggle="modal" data-target="#myModal"><img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R" name="aboutme" width="140" height="140" class="img-circle"></a>
-            <a href="#aboutModal" data-toggle="modal" data-target="#editprofile"><button name="editprofile" class="btn btn-danger" style="float: right; margin-top: 3px" type="button">Edit profile</button></a>
+
+            @if ($user->id == Auth::user()->id)
+                <a href="#aboutModal" data-toggle="modal" data-target="#editprofile"><button name="editprofile" class="btn btn-danger" style="float: right; margin-top: 3px" type="button">Edit profile</button></a>
+            @else
+                <button name="editprofile" class="btn btn-success" style="float: right; margin-top: 3px" type="button">Add Friend</button>
+            @endif
 
         <h3>{{$user->fname}} {{$user->lname}}</h3>
         <!-- user should be passed from the controller action to this view to be dynamic for all users not just the logged in one-->
@@ -82,14 +87,36 @@
     </div>
 
         @foreach($posts as $post)
-            <div>
-            {{$post->body}}
-                <br>
-                {{$post->created_at}}
+            <a class="container" >
+                <a href="{{route('profile',$user->id)}}">
+                    <h2>
+
+                    </h2>
+                </a>
+
+                <div class="col-xs-6">
+                    <div class="well">
+                        <h2> {{\DB::table('users')->where('id', $post->user_id)->value('fname')}}</h2>
+                        <h7>{{$post->created_at}}</h7>
+                        <h4>{{$post->body}}</h4>
+                    </div>
+                </div>
+                <a
+
+                        @if(Auth::user()->id==\DB::table('likes')->where('post_id',$post->id)->where('user_id',Auth::user()->id)->value('user_id'))
+                        class="btn btn-danger" href="/unlike/{{$user->id}}/{{$post->id}}">liked!
+                        @else
+                        class="btn btn-success" href="/like/{{$user->id}}/{{$post->id}}">Like
+                        @endif</a><br><br>
+                <a href="#" class="btn btn-default">Add a comment</a>
+                    {{-->--}}
+                    {{--@if($user->id==\DB::table('likes')->where('post_id',$post->id)->value('user_id'))--}}
+                    {{--liked!--}}
+                    {{--@else--}}
+                    {{--Like--}}
+                {{--@endif</a>--}}
             <br>
-            </div>
-            @endforeach
-
-
+            </a>
+        @endforeach
 </div>
 @endsection('content')

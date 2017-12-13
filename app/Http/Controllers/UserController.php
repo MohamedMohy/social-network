@@ -28,7 +28,9 @@ class UserController extends Controller
             $user->nname=$request->nname;
 
         $user->save();
-        return redirect('profile');
+
+        return redirect()->route('profile',['id'=> $user->id]);
+
     }
     public function listingUsers(Request $request){
         $name = $request->searchtext;
