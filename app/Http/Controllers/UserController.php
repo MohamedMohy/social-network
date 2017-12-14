@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
+use App\Post;
 use Illuminate\Http\Request;
 use App\User;
 use Auth ;
@@ -13,7 +15,9 @@ class UserController extends Controller
     public function index($user_id){
         $posts=User::find($user_id)->posts()->get();
         $user=User::find($user_id);
-        return view('show',compact('posts','user'));
+        $comments=Comment::all();
+       // dd($comments);
+        return view('show',compact('posts','user','comments'));
     }
     
     public function update(Request $request){
