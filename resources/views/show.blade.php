@@ -100,7 +100,7 @@
                         <h7>{{$post->created_at}}</h7>
                         <h4>{{$post->body}}</h4>
                         @foreach(\DB::table('comments')->where('post_id',$post->id)->get() as $comment)
-                            <h7>{{$comment->body}}</h7>
+                            <i>{{$comment->body}}</i>
                             <br>
                         @endforeach
                     </div>
