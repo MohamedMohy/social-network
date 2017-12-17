@@ -6,11 +6,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
+use Hootlex\Friendships\Traits\Friendable;
 
 class User extends Authenticatable implements HasMedia
 {
     use Notifiable;
     use HasMediaTrait;
+    use Friendable;
 
     /**
      * The attributes that are mass assignable.

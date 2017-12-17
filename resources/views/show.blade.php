@@ -12,7 +12,11 @@
             @if ($user->id == Auth::user()->id)
                 <a href="#aboutModal" data-toggle="modal" data-target="#editprofile"><button name="editprofile" class="btn btn-danger" style="float: right; margin-top: 3px" type="button">Edit profile</button></a>
             @else
-                <button name="editprofile" class="btn btn-success" style="float: right; margin-top: 3px" type="button">Add Friend</button>
+                    @if(\DB::table('friendship')->where('recipient_id',$user->id)->where('sender_id',Auth::user()->id))
+                        <button name="editprofile" class="btn btn-default" style="float: right; margin-top: 3px" type="button">Pending</button>
+                    @else
+                    <a href="{{ route ('friendship',$user->id) }}"><button name="editprofile" class="btn btn-success" style="float: right; margin-top: 3px" type="button">Add Friend</button></a>
+                        @endif
             @endif
 
         <h3>{{$user->fname}} {{$user->lname}}</h3>

@@ -14,6 +14,7 @@ class PostsController extends Controller
         $post=new Post();
         $post->user_id=Auth::user()->id;
         $post->body=$request->post;
+        $post->privacy=$request->privacy;
         $post->save();
         return view('home');
     }

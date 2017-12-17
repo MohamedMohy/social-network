@@ -55,6 +55,10 @@ class UserController extends Controller
        $users= \DB::table('users')->where('fname', $name)->get();
        return view('listingUsers',compact('users'));
     }
-    public function friends(){
+    public function sendfriendrequest($recipient_id){
+        $recipient=User::find($recipient_id);
+        Auth::user()->befriend($recipient);
+
+        return redirect()->route('profile',['id'=>$recipient->id]);
     }
 }
