@@ -71,7 +71,7 @@
                         <label for="nickname">Nickname</label>
                         <input type="text" id="nickname" class="form-control" name="nname">
                         <label for="profilepicture">Profile picture</label>
-                        <input type="file" class="form-control" id="profilepicture" name="profilepicture">
+                        <input type="file" class="form-control" id="image" name="image">
                         <label for="status">Hometown</label>
                         <select id="status" class="form-control" name="status">
                             <option value="0">Single</option>

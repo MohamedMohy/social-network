@@ -3,10 +3,14 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
     use Notifiable;
+    use HasMediaTrait;
 
     /**
      * The attributes that are mass assignable.

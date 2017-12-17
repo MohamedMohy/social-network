@@ -30,8 +30,10 @@ class UserController extends Controller
             $user->hometown=$request->hometown;
         if($request->nname != Null)
             $user->nname=$request->nname;
+       if($request->profilepicture != Null)
+          $user->addMedia($request->file('image')->toMediaCollection('images'));
 
-        $user->save();
+        $user->update();
 
         return redirect()->route('profile',['id'=> $user->id]);
 
