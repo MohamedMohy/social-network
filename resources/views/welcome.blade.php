@@ -79,15 +79,17 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                  Welcome to Our social network
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    @guest
+                    <a href="{{ route('register') }}" class="btn btn-default">Regester now!</a>
+                    
+                    <a href="{{ route('login') }}"class="btn btn-default">Already a member! login here</a>
+                    @else
+                    <a href="{{ route('home') }}"class="btn btn-default">Home</a>
+                    @endguest
                 </div>
             </div>
         </div>
