@@ -21,10 +21,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/home', 'PostsController@create');
-
 //Route::get('/profile', 'UserController@index')->name('profile');
 Route::get('/friends', 'UserController@friends')->name('friends');
-
 Route::get('/profile/{id?}', 'UserController@index')->name('profile');
 Route::get('/listingUsers','UserController@listingUsers')->name('listingUsers');
 Route::post('/profile/{id?}', 'UserController@update');
@@ -32,6 +30,7 @@ Route::get('/like/{id}/{postid}','LikesController@create')->name('like');
 Route::get('/unlike/{id}/{postid}','LikesController@destroy')->name('unlike');
 Route::post('/comment/{id}/{postid}/{ProfileOwnerId}','CommentsController@create')->name('like');
 Route::get('/friendship/{recipientid}','UserController@sendfriendrequest')->name('friendship');
+
 
 
 

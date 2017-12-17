@@ -106,10 +106,27 @@
                         <h2> {{\DB::table('users')->where('id', $post->user_id)->value('fname')}}</h2>
                         <h7>{{$post->created_at}}</h7>
                         <h4>{{$post->body}}</h4>
-                        @foreach(\DB::table('comments')->where('post_id',$post->id)->get() as $comment)
+                        <a href="#showcomment" data-toggle="modal" data-target="#showcomment"><button name="showcomments"  class="btn btn-default">show comments</button></a>
+                <div class="modal fade" id="showcomment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            </div>
+                            <div class="modal-body">
+                            @foreach(\DB::table('comments')->where('post_id',$post->id)->get() as $comment)
+                            <h4>{{\DB::table('users')->where('id',$comment->user_id)->value('fname')}}     </h4>  
                             <i>{{$comment->body}}</i>
+
                             <br>
+                            <hr>
                         @endforeach
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                       
                     </div>
                 </div>
                 <a

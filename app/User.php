@@ -3,24 +3,28 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+
+use Hootlex\Friendships\Traits\Friendable;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
-use Hootlex\Friendships\Traits\Friendable;
+
+
+
 
 class User extends Authenticatable implements HasMedia
 {
     use Notifiable;
+
     use HasMediaTrait;
     use Friendable;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'fname', 'lname', 'email', 'password', 'bdate', 'gender'
+        'fname', 'lname', 'email', 'password', 'bdate', 'gender','nname'
     ];
 
     /**
@@ -31,7 +35,6 @@ class User extends Authenticatable implements HasMedia
     protected $hidden = [
         'password', 'remember_token',
     ];
-
     public function posts()
     {
         return $this->hasMany('App\Post');
