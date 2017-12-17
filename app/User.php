@@ -34,5 +34,11 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->hasMany('App\Post');
     }
+    public function registerMediaConversions()
+    {
+        $this->addMediaConversion('icon')
+            ->setManipulations(['w' => 300, 'h' => 250])
+            ->performOnCollections('photos');
+    }
 
 }

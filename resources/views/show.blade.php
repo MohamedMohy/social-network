@@ -4,8 +4,11 @@
 <div class="container">
     <div class="span3 well">
         <center>
+            @if(\DB::table('media')->where('model_id',Auth::user()->id))
+                <a href="#aboutModal" data-toggle="modal" data-target="#myModal"><img src="{{Auth::user()->getFirstMediaUrl()}}" name="aboutme" width="140" height="140" class="img-circle"></a>
+            @else
         <a href="#aboutModal" data-toggle="modal" data-target="#myModal"><img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R" name="aboutme" width="140" height="140" class="img-circle"></a>
-
+            @endif
             @if ($user->id == Auth::user()->id)
                 <a href="#aboutModal" data-toggle="modal" data-target="#editprofile"><button name="editprofile" class="btn btn-danger" style="float: right; margin-top: 3px" type="button">Edit profile</button></a>
             @else
@@ -60,7 +63,7 @@
                     <h4 class="modal-title" id="myModalLabel">More About {{$user->Fname}} {{$user->Lname}}</h4>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="{{ route ('profile',Auth::user()->id) }}">
+                    <form method="post" action="{{ route ('profile',Auth::user()->id) }}" enctype="multipart/form-data">
                         {{ csrf_field()}}
                         <label for="aboutme">About me</label>
                         <textarea class="form-control" style="resize: none" id="aboutme" rows="3" name="aboutme"></textarea>
@@ -70,7 +73,7 @@
                         <input type="text" id="hometown" class="form-control" name="hometown">
                         <label for="nickname">Nickname</label>
                         <input type="text" id="nickname" class="form-control" name="nname">
-                        <label for="profilepicture">Profile picture</label>
+                        <label for="image">Profile picture</label>
                         <input type="file" class="form-control" id="image" name="image">
                         <label for="status">Hometown</label>
                         <select id="status" class="form-control" name="status">

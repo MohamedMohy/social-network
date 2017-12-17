@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Auth ;
 use phpDocumentor\Reflection\Types\Null_;
+use Spatie\MediaLibrary\Media;
 
 class UserController extends Controller
 {
@@ -21,6 +22,7 @@ class UserController extends Controller
     }
     
     public function update(Request $request){
+
         $user = Auth::user();
         if($request->aboutme != Null)
             $user->aboutme =$request->aboutme;
@@ -30,8 +32,18 @@ class UserController extends Controller
             $user->hometown=$request->hometown;
         if($request->nname != Null)
             $user->nname=$request->nname;
-       if($request->profilepicture != Null)
-          $user->addMedia($request->file('image')->toMediaCollection('images'));
+        if($request->image != Null)
+        {
+
+            if($media=\DB::table('media')->where('model_id',$user->id))
+            {
+                $media->delete();
+                $user->addMedia($request->image)->toMediaCollection();
+            }
+
+            else
+            $user->addMedia($request->image)->toMediaCollection();
+        }
 
         $user->update();
 
