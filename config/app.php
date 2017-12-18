@@ -39,6 +39,7 @@ return [
     |
     */
 
+
     'debug' => env('APP_DEBUG', false),
 
     /*
@@ -228,5 +229,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
+
 
 ];

@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->boolean('gender');
             $table->string('hometown')->nullable();
             $table->string('aboutme')->nullable();
-            $table->tinyInteger('status')->nullable();
+            $table->tinyInteger('status')->default(2);
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();

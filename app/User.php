@@ -1,8 +1,9 @@
 <?php
 namespace App;
+use Auth;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Illuminate\Notifications\Notifiable;
 use Hootlex\Friendships\Traits\Friendable;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -10,8 +11,10 @@ use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
 
 
 
+
 class User extends Authenticatable implements HasMedia
-{ 
+{
+    use Notifiable;
     use HasMediaTrait;
     use Friendable;
     /**

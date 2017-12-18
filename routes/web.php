@@ -31,7 +31,9 @@ Route::post('/profile/{id?}', 'UserController@update');
 Route::get('/like/{id}/{postid}','LikesController@create')->name('like');
 Route::get('/unlike/{id}/{postid}','LikesController@destroy')->name('unlike');
 Route::post('/comment/{id}/{postid}/{ProfileOwnerId}','CommentsController@create')->name('like');
-Route::get('notifications', 'NotificationController@getIndex');
+Route::get('/friendship/{recipientid}','UserController@sendfriendrequest')->name('friendship');
+Route::get('/deletepost/{postid}','PostsController@delete')->name('deletepost');
+Route::get('/notifications', 'UserController@notifications');
 
 
 

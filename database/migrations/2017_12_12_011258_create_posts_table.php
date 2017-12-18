@@ -19,6 +19,7 @@ class CreatePostsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('counter')->default(0);
+            $table->boolean('privacy')->default(0);
             $table->timestamps();
         });
     }

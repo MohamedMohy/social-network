@@ -13,6 +13,19 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+<script>
+        window.Laravel = <?php echo json_encode([
+            'csrfToken' => csrf_token(),
+        ]); ?>
+    </script>
+
+    <!-- This makes the current user's id available in javascript -->
+    @if(!auth()->guest())
+        <script>
+            window.Laravel.userId = <?php echo auth()->user()->id; ?>
+        </script>
+    @endif
+
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
@@ -30,7 +43,7 @@
                         {{ config('app.name', 'Laravel') }}
                     </a>
                 </div>
-
+         
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
@@ -54,9 +67,17 @@
                                 </span>
                             </div>
                         </form>
+                        <li class="dropdown">
+            <a class="dropdown-toggle" id="notifications" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <span class="glyphicon glyphicon-globe"></span>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="notificationsMenu" id="notificationsMenu">
+                <li class="dropdown-header">No notifications</li>
+            </ul>
+        </li>
                         <li><a href="{{ route('profile',Auth::user()->id) }}">My Profile</a></li>
-                            <li class="dropdown">
-                                <ul class="dropdown-menu">
+                        
+                           
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -67,8 +88,7 @@
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
-                                    </li>
-                                </ul>
+                                   
                             </li>
                         @endguest
                     </ul>
@@ -81,6 +101,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    
 </body>
 
 </html>

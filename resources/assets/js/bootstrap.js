@@ -48,6 +48,5 @@ import Echo from 'laravel-echo'
 window.Pusher = require('pusher-js');
 window.Echo = new Echo({
     broadcaster: 'pusher',
-    key: 'f07b66423c9697f0bdb2',
-    cluster: eu
+    key: 'f07b66423c9697f0bdb2'
 });
