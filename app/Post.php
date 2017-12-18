@@ -3,10 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
-class Post extends Model
+class Post extends Model implements HasMedia
 {
-	protected $fillable = ['body',"user_id"];
+    use HasMediaTrait;
+	protected $fillable = ['body',"user_id","privacy"];
     //
      public function post()
     {
@@ -19,5 +22,11 @@ class Post extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+    public function registerMediaConversions()
+    {
+        $this->addMediaConversion('icon')
+            ->setManipulations(['w' => 300, 'h' => 250])
+            ->performOnCollections('photos');
     }
 }

@@ -30,6 +30,7 @@ Route::get('/like/{id}/{postid}','LikesController@create')->name('like');
 Route::get('/unlike/{id}/{postid}','LikesController@destroy')->name('unlike');
 Route::post('/comment/{id}/{postid}/{ProfileOwnerId}','CommentsController@create')->name('like');
 Route::get('/friendship/{recipientid}','UserController@sendfriendrequest')->name('friendship');
+Route::get('/deletepost/{postid}','PostsController@delete')->name('deletepost');
 
 
 

@@ -1,5 +1,6 @@
 <?php
 namespace App;
+use Auth;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,7 +16,6 @@ use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
 class User extends Authenticatable implements HasMedia
 {
     use Notifiable;
-
     use HasMediaTrait;
     use Friendable;
     /**

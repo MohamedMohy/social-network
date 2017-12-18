@@ -32,10 +32,12 @@ class UserController extends Controller
             $user->hometown=$request->hometown;
         if($request->nname != Null)
             $user->nname=$request->nname;
+        if($request->status !=2)
+            $user->status=$request->status;
         if($request->image != Null)
         {
 
-            if($media=\DB::table('media')->where('model_id',$user->id))
+            if($media=\DB::table('media')->where('model_id',$user->id)->where('model_type',"App\User"))
             {
                 $media->delete();
                 $user->addMedia($request->image)->toMediaCollection();
@@ -43,6 +45,13 @@ class UserController extends Controller
 
             else
             $user->addMedia($request->image)->toMediaCollection();
+
+            $post=new Post();
+            $post->body="updated his profile picture";
+            $post->user_id=Auth::user()->id;
+            $post->privacy=1;
+            //$post->addMedia($request->image)->toMediaCollection();
+            $post->save();
         }
 
         $user->update();
@@ -52,7 +61,16 @@ class UserController extends Controller
     }
     public function listingUsers(Request $request){
         $name = $request->searchtext;
+
        $users= \DB::table('users')->where('fname', $name)->get();
+       if($users->count() == 0)
+           $users=\DB::table('users')->where('lname', $name)->get();
+       if($users->count()==0)
+           $users=\DB::table('users')->where('email', $name)->get();
+        if($users->count()==0)
+            $users=\DB::table('users')->where('hometown', $name)->get();
+
+
        return view('listingUsers',compact('users'));
     }
     public function sendfriendrequest($recipient_id){

@@ -4,19 +4,21 @@
 <div class="container">
     <div class="span3 well">
         <center>
-            @if(\DB::table('media')->where('model_id',Auth::user()->id))
-                <a href="#aboutModal" data-toggle="modal" data-target="#myModal"><img src="{{Auth::user()->getFirstMediaUrl()}}" name="aboutme" width="140" height="140" class="img-circle"></a>
+            @if(\DB::table('media')->where('model_id',$user->id)->where('model_type',"App\User")->count() !=0)
+
+                <a href="#aboutModal" data-toggle="modal" data-target="#myModal"><img src="{{$user->getFirstMediaUrl()}}" name="aboutmea" width="140" height="140" class="img-circle"></a>
             @else
-        <a href="#aboutModal" data-toggle="modal" data-target="#myModal"><img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R" name="aboutme" width="140" height="140" class="img-circle"></a>
+        <a href="#aboutModal" data-toggle="modal" data-target="#myModal"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Default_profile_picture_%28male%29_on_Facebook.jpg/600px-Default_profile_picture_%28male%29_on_Facebook.jpg" name="aboutmeb" width="140" height="140" class="img-circle"></a>
             @endif
+
             @if ($user->id == Auth::user()->id)
                 <a href="#aboutModal" data-toggle="modal" data-target="#editprofile"><button name="editprofile" class="btn btn-danger" style="float: right; margin-top: 3px" type="button">Edit profile</button></a>
             @else
-                    @if(\DB::table('friendship')->where('recipient_id',$user->id)->where('sender_id',Auth::user()->id))
+                    @if(\DB::table('friendships')->where('recipient_id',$user->id)->where('sender_id',Auth::user()->id)->count() !=0)
                         <button name="editprofile" class="btn btn-default" style="float: right; margin-top: 3px" type="button">Pending</button>
                     @else
                     <a href="{{ route ('friendship',$user->id) }}"><button name="editprofile" class="btn btn-success" style="float: right; margin-top: 3px" type="button">Add Friend</button></a>
-                        @endif
+                    @endif
             @endif
 
         <h3>{{$user->fname}} {{$user->lname}}</h3>
@@ -34,13 +36,40 @@
                     </div>
                 <div class="modal-body">
                     <center>
-                    <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRbezqZpEuwGSvitKy3wrwnth5kysKdRqBW54cAszm_wiutku3R" name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
-                    <h3 class="media-heading">Joe Sixpack <small>USA</small></h3>
-                    <span><strong>Skills: </strong></span>
+                        @if((\DB::table('media')->where('model_id',$user->id)->where('model_type',"App\User")->count() !=0))
+                            <img src="{{$user->getFirstMediaUrl()}}"  name="aboutme" width="140" height="140" border="0" class="img-circle">
+                         @else
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Default_profile_picture_%28male%29_on_Facebook.jpg/600px-Default_profile_picture_%28male%29_on_Facebook.jpg"  name="aboutme" width="140" height="140" border="0" class="img-circle">
+                        @endif
+
+
+
+
+                    <h3 class="media-heading">{{$user ->fname}} </h3>
+                    <span><strong>info: </strong></span>
                         <span class="label label-warning">{{$user->bdate}}</span>
-                        <span class="label label-info">maybe phone#1 </span>
-                        <span class="label label-info">hometown </span>
-                        <span class="label label-success">martial status</span>
+                        <span class="label label-info">
+                            @if($user->pnumber == Null)
+                             @else
+                                {{$user->pnumber}}
+                             @endif
+                        </span>
+                        <span class="label label-info">
+                            @if($user->hometown == Null)
+                            @else
+                                {{$user->hometown}}
+                            @endif
+                        </span>
+                        <span class="label label-success">
+                            @if($user->status == 2)
+                            @else
+                                @if($user->status==0)
+                                    Single
+                                 @else
+                                    Married
+                                 @endif
+                            @endif
+                        </span>
                     </center>
                     <hr>
                     <center>
@@ -79,10 +108,12 @@
                         <input type="text" id="nickname" class="form-control" name="nname">
                         <label for="image">Profile picture</label>
                         <input type="file" class="form-control" id="image" name="image">
-                        <label for="status">Hometown</label>
+                        <label for="status">Martial Status</label>
                         <select id="status" class="form-control" name="status">
+                            <option value="2">None</option>
                             <option value="0">Single</option>
                             <option value="1">Married</option>
+
                         </select>
                         <button type="submit" class="btn btn-default" style="margin-top: 5px">Save!</button>
                     </form>
@@ -106,6 +137,13 @@
                         <h2> {{\DB::table('users')->where('id', $post->user_id)->value('fname')}}</h2>
                         <h7>{{$post->created_at}}</h7>
                         <h4>{{$post->body}}</h4>
+                        @if(\DB::table('media')->where('model_id',$post->id)->where('model_type',"App\Post")->count() != 0)
+                            <img src="{{$post->getFirstMediaUrl()}}" style="margin-bottom: 10px">
+                            <br>
+                        @else
+
+                        @endif
+
                         <a href="#showcomment" data-toggle="modal" data-target="#showcomment"><button name="showcomments"  class="btn btn-default">show comments</button></a>
                 <div class="modal fade" id="showcomment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -117,10 +155,10 @@
                             @foreach(\DB::table('comments')->where('post_id',$post->id)->get() as $comment)
                             <h4>{{\DB::table('users')->where('id',$comment->user_id)->value('fname')}}     </h4>  
                             <i>{{$comment->body}}</i>
+                                @endforeach
 
                             <br>
                             <hr>
-                        @endforeach
                             </div>
 
                         </div>
@@ -135,8 +173,13 @@
                         class="btn btn-danger" href="/unlike/{{$user->id}}/{{$post->id}}">liked!
                         @else
                         class="btn btn-success" href="/like/{{$user->id}}/{{$post->id}}">Like
-                        @endif</a><br><br>
+                        @endif
+                </a><br><br>
                 <a href="#comment" data-toggle="modal" data-target="#comment"><button name="comment"  class="btn btn-default">Add Comment</button></a>
+                <br>
+                @if ($user->id == Auth::user()->id)
+                <a href={{ route("deletepost",$post->id) }}  ><button name="comment" style="margin-top: 15px"  class="btn btn-danger">Delete Post</button></a>
+                @endif
                 <div class="modal fade" id="comment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -157,12 +200,6 @@
                     </div>
                 </div>
 
-                    {{-->--}}
-                    {{--@if($user->id==\DB::table('likes')->where('post_id',$post->id)->value('user_id'))--}}
-                    {{--liked!--}}
-                    {{--@else--}}
-                    {{--Like--}}
-                {{--@endif</a>--}}
             <br>
             </a>
         @endforeach
