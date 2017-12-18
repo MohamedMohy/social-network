@@ -51,6 +51,7 @@ class UserController extends Controller
 
     }
     public function listingUsers(Request $request){
+     
         $name = $request->searchtext;
        $users= \DB::table('users')->where('fname', $name)->get();
        return view('listingUsers',compact('users'));

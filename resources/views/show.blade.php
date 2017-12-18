@@ -18,6 +18,7 @@
         <h3>{{$user->fname}} {{$user->lname}}</h3>
         <!-- user should be passed from the controller action to this view to be dynamic for all users not just the logged in one-->
         <em>click my face for more</em>
+        
 		</center>
     </div>
     <!-- Modal -->
@@ -91,16 +92,11 @@
 
         @foreach($posts as $post)
             <a class="container" >
-                <a href="{{route('profile',$user->id)}}">
-                    <h2>
-
-                    </h2>
-                </a>
-
+                <a href="{{route('profile',$user->id)}}"></a>
                 <div class="col-xs-6">
                     <div class="well">
                         <h2> {{\DB::table('users')->where('id', $post->user_id)->value('fname')}}</h2>
-                        <h7>{{$post->created_at}}</h7>
+                        <h7>{{$post->created_at}} </h7>
                         <h4>{{$post->body}}</h4>
                         <a href="#showcomment" data-toggle="modal" data-target="#showcomment"><button name="showcomments"  class="btn btn-default">show comments</button></a>
                 <div class="modal fade" id="showcomment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -111,14 +107,13 @@
                             </div>
                             <div class="modal-body">
                             @foreach(\DB::table('comments')->where('post_id',$post->id)->get() as $comment)
+                            <h1>{{$post->id}}</h1>
                             <h4>{{\DB::table('users')->where('id',$comment->user_id)->value('fname')}}     </h4>  
                             <i>{{$comment->body}}</i>
-
                             <br>
                             <hr>
                         @endforeach
                             </div>
-
                         </div>
                     </div>
                 </div>
