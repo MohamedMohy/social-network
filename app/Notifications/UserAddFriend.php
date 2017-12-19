@@ -31,7 +31,7 @@ class UserAddFriend extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'broadcast'];
     }
 
     /**
@@ -42,8 +42,8 @@ class UserAddFriend extends Notification
      */
     public function toDatabase($notifiable)
     {
-        return[
-            'follower_id'=>$this->follower->id,
+        return [
+            'follower_id' => $this->follower->id,
             'follower_name' => $this->follower->fname,
         ];
     }
@@ -54,10 +54,17 @@ class UserAddFriend extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
+
     public function toArray($notifiable)
     {
         return [
-            //
+            'id' => $this->id,
+            'read_at' => null,
+            'data' => [
+                'follower_id' => $this->follower->id,
+                'follower_name' => $this->follower->fname,
+            ],
         ];
     }
+
 }
