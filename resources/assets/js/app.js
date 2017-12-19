@@ -30,6 +30,12 @@ const NOTIFICATION_TYPES = {
 $(document).ready(function() {
     if(Laravel.userId) {
 
+
+
+        $.get('/notifications', function (data) {
+            addNotifications(data, "#notifications");
+        });
+
         window.Echo.private(`App.User.${Laravel.userId}`)
         .notification((notification) => {
             addNotifications([notification],'#notifications');
@@ -63,9 +69,11 @@ function makeNotification(notification) {
 
 // get the notification route based on it's type
 function routeNotification(notification) {
+
     var to = '';
     if(notification.type === NOTIFICATION_TYPES.follow) {
-        to = 'friendrequests/' + notification.data.follower_id;
+        to = 'friendrequests';
+
     }
     return '/' + to;
 }

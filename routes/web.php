@@ -32,11 +32,17 @@ Route::get('/like/{id}/{postid}','LikesController@create')->name('like');
 Route::get('/unlike/{id}/{postid}','LikesController@destroy')->name('unlike');
 Route::post('/comment/{id}/{postid}/{ProfileOwnerId}','CommentsController@create')->name('like');
 Route::get('/friendship/{recipientid}','UserController@sendfriendrequest')->name('friendship');
-Route::get('/acceptfriendrequest/{senderid}','UserController@acceptfriendrequest')->name('acceptfriendrequest');
-Route::get('/denyfriendrequest/{senderid}','UserController@denyfriendrequest')->name('denyfriendrequest');
+Route::get('/acceptfriendrequest/{senderid}/{notification_id}','UserController@acceptfriendrequest')->name('acceptfriendrequest');
+Route::get('/denyfriendrequest/{senderid}/{notification_id}','UserController@denyfriendrequest')->name('denyfriendrequest');
+Route::get('/deletepost/{postid}','PostsController@delete')->name('deletepost');
+Route::get('likehome/{postid}','LikesController@likehome')->name('likehome');
+Route::get('unlikehome/{postid}','LikesController@unlikehome')->name('unlikehome');
+Route::get('/friendrequests', 'UserController@listingrequests');
 Route::get('/deletepost/{postid}','PostsController@delete')->name('deletepost');
 Route::get('/notifications', 'UserController@notifications');
-Route::get('/friendrequests/{id}', 'UserController@listingrequets');
+Route::get('commenthome/{postid}','CommentsController@commenthome')->name('commenthome');
+
+
 
 
 

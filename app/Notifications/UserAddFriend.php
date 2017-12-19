@@ -45,6 +45,7 @@ class UserAddFriend extends Notification
         return [
             'follower_id' => $this->follower->id,
             'follower_name' => $this->follower->fname,
+            //'follower_lname' => $this->follower->lname,
         ];
     }
 

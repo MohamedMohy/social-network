@@ -21,7 +21,17 @@ class PostsController extends Controller
             $post->addMedia($request->photo)->toMediaCollection();
         }
         $post->save();
-        return view('home');
+        $posts=\DB::table('posts')->where('privacy',0)->get();
+        $privateposts =\DB::table('posts')->where('privacy',1)->get();
+        foreach ($privateposts as $privatepost)
+        {
+            if($privatepost->user_id==Auth::user()->id){
+                $posts.add($privatepost);
+            }
+        }
+        //dd($posts);
+        return view('home',compact('posts'));
+
     }
     public function delete($post_id){
        $post= Post::find($post_id);

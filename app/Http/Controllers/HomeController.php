@@ -6,6 +6,7 @@ use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use function Sodium\add;
 
 class HomeController extends Controller
 {
@@ -27,7 +28,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $posts=\DB::table('posts')->where('privacy',0)->get();
+        $privateposts =\DB::table('posts')->where('privacy',1)->get();
+        foreach ($privateposts as $privatepost)
+        {
+         if($privatepost->user_id==Auth::user()->id){
+             $posts.add($privatepost);
+         }
+        }
+        //dd($posts);
+        return view('home',compact('posts'));
     }
 
 

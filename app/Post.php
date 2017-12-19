@@ -21,7 +21,7 @@ class Post extends Model implements HasMedia
     }
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany('App\Comment');
     }
     public function registerMediaConversions()
     {
