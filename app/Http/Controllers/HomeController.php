@@ -28,8 +28,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts=\DB::table('posts')->where('privacy',0)->get();
-        $privateposts =\DB::table('posts')->where('privacy',1)->get();
+        $posts=Post::where('privacy',0)->get();
+        $privateposts =Post::where('privacy',1)->get();
         foreach ($privateposts as $privatepost)
         {
          if($privatepost->user_id==Auth::user()->id){

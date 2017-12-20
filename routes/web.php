@@ -40,7 +40,7 @@ Route::get('unlikehome/{postid}','LikesController@unlikehome')->name('unlikehome
 Route::get('/friendrequests', 'UserController@listingrequests');
 Route::get('/deletepost/{postid}','PostsController@delete')->name('deletepost');
 Route::get('/notifications', 'UserController@notifications');
-Route::get('commenthome/{postid}','CommentsController@commenthome')->name('commenthome');
+Route::post('commenthome/{postid}','CommentsController@commenthome')->name('commenthome');
 
 
 
