@@ -18,7 +18,7 @@ class UserController extends Controller
     //
     public function index($user_id)
     {
-        $posts = User::find($user_id)->posts()->get();
+        $posts = User::find($user_id)->posts()->orderBy('created_at', 'desc')->get();
         $user = User::find($user_id);
         $comments = Comment::all();
         // dd($comments);
@@ -97,7 +97,7 @@ class UserController extends Controller
         \DB::table('notifications')->where('id',$notification_id)->delete();
         Auth::user()->acceptFriendRequest($sender);
        // $sender->notify(new UserAcceptRequest(Auth::user()));
-        return redirect()->route('profile', ['id' => Auth::user()->id]);
+        return redirect()->route('profile', ['id' => $sender_id]);
     }
 
     public function listingrequests()
@@ -112,6 +112,11 @@ class UserController extends Controller
         \DB::table('notifications')->where('id',$notification_id)->delete();
         //$sender->notify(new UserAddFriend(Auth::user()));
         return redirect()->route('profile', ['id' => $sender->id]);
+    }
+    public function friends($id){
+        $user=User::find($id);
+        $friends=$user->getFriends();
+        return view('friendlist',compact('friends'));
     }
 
 

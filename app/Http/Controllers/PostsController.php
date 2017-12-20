@@ -21,14 +21,22 @@ class PostsController extends Controller
             $post->addMedia($request->photo)->toMediaCollection();
         }
         $post->save();
-        $posts=Post::where('privacy',0)->get();
-        $privateposts =Post::where('privacy',1)->get();
-        foreach ($privateposts as $privatepost)
-        {
-         if($privatepost->user_id==Auth::user()->id){
-             $posts.add($privatepost);
-         }
+        $publicposts=Post::where('privacy',0)->orderBy('created_at', 'desc')->get();
+        $friends=Auth::user()->getFriends();
+        $privateposts=Post::where('privacy',1)->orderBy('created_at', 'desc')->get();
+        $privatepostsoffriends =array();
+        $publicpostsarray =array();
+        foreach ($publicposts as $publicpost)
+            array_push($publicpostsarray,$publicpost);
+
+        foreach ($friends as $friend){
+            foreach ($privateposts as $privatepost)
+            {
+                if($friend->id == $privatepost->user_id)
+                    $privatepostsoffriends[] = $privatepost;
+            }
         }
+        $posts = array_merge($privatepostsoffriends,$publicpostsarray);
         return view('home',compact('posts'));
 
     }

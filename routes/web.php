@@ -24,7 +24,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/home', 'PostsController@create');
 //Route::get('/profile', 'UserController@index')->name('profile');
-Route::get('/friends', 'UserController@friends')->name('friends');
+Route::get('/friends/{id}', 'UserController@friends')->name('friends');
 Route::get('/profile/{id?}', 'UserController@index')->name('profile');
 Route::get('/listingUsers','UserController@listingUsers')->name('listingUsers');
 Route::post('/profile/{id?}', 'UserController@update');

@@ -76,7 +76,7 @@
             </ul>
         </li>
                         <li><a href="{{ route('profile',Auth::user()->id) }}">My Profile</a></li>
-                        
+                            <li><a href="{{ route('home',Auth::user()->id) }}">Home</a></li>
                            
                                     <li>
                                         <a href="{{ route('logout') }}"
