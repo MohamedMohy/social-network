@@ -118,6 +118,19 @@ class UserController extends Controller
         $friends=$user->getFriends();
         return view('friendlist',compact('friends'));
     }
+    public function removepicture($id){
+        $user=User::find($id);
+        if(\DB::table('media')->where('model_id',$id)->where('model_type',"App\User")->count() !=0){
+            $media=\DB::table('media')->where('model_id',$id)->where('model_type',"App\User");
+            $media->delete();
+            $post=new Post();
+            $post->body="removed his profile picture";
+            $post->privacy=1;
+            $post->user_id=$id;
+            $post->save();
+        }
+        return redirect()->route('profile', ['id' => $id]);
+    }
 
 
 }

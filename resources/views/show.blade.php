@@ -13,7 +13,9 @@
 
                 @if ($user->id == Auth::user()->id)
                     <a href="#aboutModal" data-toggle="modal" data-target="#editprofile"><button name="editprofile" class="btn btn-danger" style="float: right; margin-top: 3px" type="button">Edit profile</button></a>
-                @elseif(\DB::table('friendships')->where('recipient_id',$user->id)->where('sender_id',Auth::user()->id)->where('status',0)->count() !=0)
+                        <a href="{{route('removepicture',Auth::user()->id)}}"><button type="button" id="remove" class=" btn btn-default" style="float: right; margin-top: 3px" name="remove">Remove profile picture</button></a>
+
+                    @elseif(\DB::table('friendships')->where('recipient_id',$user->id)->where('sender_id',Auth::user()->id)->where('status',0)->count() !=0)
                         <button name="editprofile" class="btn btn-default" style="float: right; margin-top: 3px" type="button">Pending</button>
                     @elseif(\DB::table('friendships')->where('recipient_id',$user->id)->where('sender_id',Auth::user()->id)->where('status',1)->count() !=0||\DB::table('friendships')->where('sender_id',$user->id)->where('recipient_id',Auth::user()->id)->where('status',1)->count() !=0)
                             <button name="editprofile" class="btn btn-primary" style="float: right; margin-top: 3px" type="button">Friends</button>
@@ -48,28 +50,36 @@
                             <h3 class="media-heading">{{$user ->fname}} </h3>
                             <span><strong>info: </strong></span>
                             <span class="label label-warning">{{$user->bdate}}</span>
-                            <span class="label label-info">
+
                             @if($user->pnumber == Null)
                                 @else
+                                    <span class="label label-info">
                                     {{$user->pnumber}}
+                                         </span>
                                 @endif
-                        </span>
-                            <span class="label label-info">
+
+
                             @if($user->hometown == Null)
                                 @else
+                                    <span class="label label-info">
                                     {{$user->hometown}}
+                                          </span>
                                 @endif
-                        </span>
-                            <span class="label label-success">
+
+
                             @if($user->status == 2)
                                 @else
                                     @if($user->status==0)
+                                        <span class="label label-success">
                                         Single
+                                            </span>
                                     @else
+                                        <span class="label label-success">
                                         Married
+                                        </span>
                                     @endif
                                 @endif
-                        </span>
+
                         </center>
                         <hr>
                         <center>
@@ -115,6 +125,7 @@
                                 <option value="1">Married</option>
 
                             </select>
+
                             <button type="submit" class="btn btn-default" style="margin-top: 5px">Save!</button>
                         </form>
 

@@ -28,9 +28,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $publicposts=Post::where('privacy',0)->orderBy('created_at', 'desc')->get();
+        $publicposts=Post::where('privacy',0)->orderBy('created_at', 'ascen')->get();
         $friends=Auth::user()->getFriends();
-        $privateposts=Post::where('privacy',1)->orderBy('created_at', 'desc')->get();
+        $privateposts=Post::where('privacy',1)->orderBy('created_at', 'ascen')->get();
         $privatepostsoffriends =array();
         $publicpostsarray =array();
         foreach ($publicposts as $publicpost)
@@ -46,6 +46,7 @@ class HomeController extends Controller
         $posts = array_merge($privatepostsoffriends,$publicpostsarray);
         return view('home',compact('posts'));
     }
+
 
 
 

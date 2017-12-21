@@ -21,9 +21,9 @@ class PostsController extends Controller
             $post->addMedia($request->photo)->toMediaCollection();
         }
         $post->save();
-        $publicposts=Post::where('privacy',0)->orderBy('created_at', 'desc')->get();
+        $publicposts=Post::where('privacy',0)->orderBy('created_at', 'descen')->get();
         $friends=Auth::user()->getFriends();
-        $privateposts=Post::where('privacy',1)->orderBy('created_at', 'desc')->get();
+        $privateposts=Post::where('privacy',1)->orderBy('created_at', 'descen')->get();
         $privatepostsoffriends =array();
         $publicpostsarray =array();
         foreach ($publicposts as $publicpost)
