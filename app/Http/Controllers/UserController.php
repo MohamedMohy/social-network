@@ -73,16 +73,22 @@ class UserController extends Controller
     {
 
         $name = $request->searchtext;
+        $users []=new User();
+        $userss []=new User();
+        $posts=Post::where('body','LIKE',"%{$name}%")->get();
+        $users = \DB::table('users')->where('fname', $name)->orWhere('lname', $name)->
+        orWhere('email', $name)->orWhere('hometown', $name)->get();
 
-        $users = \DB::table('users')->where('fname', $name)->get();
-        if ($users->count() == 0)
-            $users = \DB::table('users')->where('lname', $name)->get();
-        if ($users->count() == 0)
-            $users = \DB::table('users')->where('email', $name)->get();
-        if ($users->count() == 0)
-            $users = \DB::table('users')->where('hometown', $name)->get();
-
-
+        foreach ($posts as $post) {
+            $wahed=User::find($post->user_id);
+            if($post->privacy=0||Auth::user()->isFriendWith($wahed)) {
+                $wahed = \DB::table('users')->where('id', $post->user_id)->get();
+                $users = $users->merge($wahed);
+                }
+        }
+    
+        $users=$users->unique();
+       // $users= $users->merge($userss);
         return view('listingUsers', compact('users'));
     }
 
