@@ -70,6 +70,7 @@
                         <li class="dropdown">
             <a class="dropdown-toggle" id="notifications" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 <span class="glyphicon glyphicon-globe"></span>
+                <span id="momo" class="badge badge-notify">{{\DB::table('notifications')->where('notifiable_id',Auth::user()->id)->count()}}</span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="notificationsMenu" id="notificationsMenu">
                 <li class="dropdown-header">No notifications</li>
