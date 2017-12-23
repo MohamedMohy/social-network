@@ -18,8 +18,16 @@ class UserController extends Controller
     //
     public function index($user_id)
     {
-        $posts = User::find($user_id)->posts()->orderBy('created_at', 'desc')->get();
         $user = User::find($user_id);
+        if($user->isFriendWith(Auth::user()) || Auth::user()->id == $user->id)
+        {
+            $posts = User::find($user_id)->posts()->orderBy('created_at', 'desc')->get();
+        }
+        else{
+            $posts=$user->posts()->where('privacy',0)->get();
+        }
+
+
         $comments = Comment::all();
         // dd($comments);
         return view('show', compact('posts', 'user', 'comments'));
@@ -96,7 +104,7 @@ class UserController extends Controller
         $sender = User::find($sender_id);
         \DB::table('notifications')->where('id',$notification_id)->delete();
         Auth::user()->acceptFriendRequest($sender);
-       // $sender->notify(new UserAcceptRequest(Auth::user()));
+       $sender->notify(new UserAcceptRequest(Auth::user()));
         return redirect()->route('profile', ['id' => $sender_id]);
     }
 
@@ -130,6 +138,11 @@ class UserController extends Controller
             $post->save();
         }
         return redirect()->route('profile', ['id' => $id]);
+    }
+    public function deletenotification($notification_id){
+        \DB::table('notifications')->where('id',$notification_id)->delete();
+
+        return redirect()->route('home');
     }
 
 

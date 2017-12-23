@@ -59,7 +59,7 @@
                         @else
                         <form class="navbar-form navbar-right" action ="{{ route('listingUsers')}}">
                             <div class="input-group">
-                            <input type="text"  name ="searchtext" id="searchtext" class="form-control" placeholder="Search this site">
+                            <input type="text"  name ="searchtext" id="searchtext" class="form-control" placeholder="Search this site" required>
                                 <span class="input-group-btn">
                                     <button type="submit" class="btn btn-default">
                                     Search

@@ -31,7 +31,7 @@ class UserAcceptRequest extends Notification
      */
     public function via($notifiable)
     {
-        return ['database', 'broadcast'];
+        return ['database'];
     }
 
     /**
@@ -43,8 +43,8 @@ class UserAcceptRequest extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'follower_id' => $this->user->id,
-            'follower_name' => $this->user->fname,
+            'accepter_id' => $this->user->id,
+            'accepter_name' => $this->user->fname,
         ];
     }
 

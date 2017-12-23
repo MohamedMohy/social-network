@@ -42,6 +42,7 @@ Route::get('/deletepost/{postid}','PostsController@delete')->name('deletepost');
 Route::get('/notifications', 'UserController@notifications');
 Route::post('commenthome/{postid}','CommentsController@commenthome')->name('commenthome');
 Route::get('/removepicture/{id}','UserController@removepicture')->name('removepicture');
+Route::get('/deletenotification/{notificationid}','UserController@deletenotification')->name('deletenotification');
 
 
 
