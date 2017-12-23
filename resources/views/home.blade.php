@@ -46,7 +46,6 @@
 </div>
 </div>
 <div class="container">
-    <h5>Public Posts: </h5>
 </div>
 @foreach($posts as $post)
 
@@ -76,16 +75,18 @@
                   <div class="comment-post">
                     <p>
                       {{$post->body}}
-                      <p>Comments: </p>
-                      @foreach(\DB::table('comments')->where('post_id',$post->id)->get() as $comment)
-                          <p>{{\DB::table('users')->where('id',$comment->user_id)->value('fname')}}: <i>{{$comment->body}}</i></p>
-                          <br>
-                      @endforeach
+
                           </p>
                     </p>
                     @if(\DB::table('media')->where('model_id',$post->id)->where('model_type',"App\Post")->count() != 0)
                     <img src="{{$post->getFirstMediaUrl()}}" style="margin-bottom: 10px" width="140px" height="140px">
                     @endif
+                      <p>Comments: </p>
+                      @foreach(\DB::table('comments')->where('post_id',$post->id)->get() as $comment)
+                          <p>{{\DB::table('users')->where('id',$comment->user_id)->value('fname')}}: <i>{{$comment->body}}</i></p>
+                          <br>
+                      @endforeach
+
                   </div>
                   <div class="btn-group">
                   <a

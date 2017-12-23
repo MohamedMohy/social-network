@@ -49,7 +49,9 @@
 
                             <h3 class="media-heading">{{$user ->fname}} </h3>
                             <span><strong>info: </strong></span>
+                                @if($user->isFriendWith(Auth::user()) || Auth::user()->id == $user->id)
                             <span class="label label-warning">{{$user->bdate}}</span>
+                                @endif
 
                             @if($user->pnumber == Null)
                                 @else
@@ -83,9 +85,11 @@
                         </center>
                         <hr>
                         <center>
+                            @if($user->isFriendWith(Auth::user()) || Auth::user()->id == $user->id)
                             <p class="text-left"><strong>Bio: </strong><br>
                                 {{$user->aboutme}}</p>
                             <br>
+                                @endif
                         </center>
                     </div>
                     <div class="modal-footer">

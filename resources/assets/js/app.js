@@ -24,7 +24,9 @@ window.Echo = new Echo({
 var notifications = [];
 
 const NOTIFICATION_TYPES = {
-    follow: 'App\\Notifications\\UserAddFriend'
+    follow: 'App\\Notifications\\UserAddFriend',
+    accept: 'App\\Notifications\\UserAcceptRequest'
+
 };
 
 $(document).ready(function() {
@@ -75,6 +77,11 @@ function routeNotification(notification) {
         to = 'friendrequests';
 
     }
+    if(notification.type === NOTIFICATION_TYPES.accept) {
+        to = 'deletenotification/'+notification.id;
+
+    }
+
     return '/' + to;
 }
 
@@ -85,6 +92,11 @@ function makeNotificationText(notification) {
         const name = notification.data.follower_name;
         text += '<strong>' + name + '</strong> Added you';
     }
+    if(notification.type === NOTIFICATION_TYPES.accept) {
+        const name = notification.data.accepter_name;
+        text += '<strong>' + name + '</strong> Accepted your request';
+    }
+
     return text;
 }
 

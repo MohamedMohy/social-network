@@ -35487,7 +35487,9 @@ window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
 var notifications = [];
 
 var NOTIFICATION_TYPES = {
-    follow: 'App\\Notifications\\UserAddFriend'
+    follow: 'App\\Notifications\\UserAddFriend',
+    accept: 'App\\Notifications\\UserAcceptRequest'
+
 };
 
 $(document).ready(function () {
@@ -35534,6 +35536,10 @@ function routeNotification(notification) {
     if (notification.type === NOTIFICATION_TYPES.follow) {
         to = 'friendrequests';
     }
+    if (notification.type === NOTIFICATION_TYPES.accept) {
+        to = 'deletenotification/' + notification.id;
+    }
+
     return '/' + to;
 }
 
@@ -35544,6 +35550,11 @@ function makeNotificationText(notification) {
         var name = notification.data.follower_name;
         text += '<strong>' + name + '</strong> Added you';
     }
+    if (notification.type === NOTIFICATION_TYPES.accept) {
+        var _name = notification.data.accepter_name;
+        text += '<strong>' + _name + '</strong> Accepted your request';
+    }
+
     return text;
 }
 
@@ -35565,9 +35576,9 @@ window._ = __webpack_require__(2);
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(3);
+    window.$ = window.jQuery = __webpack_require__(3);
 
-  __webpack_require__(4);
+    __webpack_require__(4);
 } catch (e) {}
 
 /**
@@ -35589,9 +35600,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-  window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
 } else {
-  console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
 /**
@@ -35604,8 +35615,8 @@ if (token) {
 
 window.Pusher = __webpack_require__(11);
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
-  broadcaster: 'pusher',
-  key: 'f07b66423c9697f0bdb2'
+    broadcaster: 'pusher',
+    key: 'f07b66423c9697f0bdb2'
 });
 
 /***/ }),

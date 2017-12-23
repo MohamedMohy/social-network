@@ -64,29 +64,26 @@
             }
         </style>
     </head>
-    <body>
+    <body style="background-image: url('https://images.pexels.com/photos/360438/pexels-photo-360438.jpeg?w=940&h=650&auto=compress&cs=tinysrgbhttps://cdn.pixabay.com/photo/2016/05/07/09/40/social-media-1377251_960_720.png')">
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
+                        <a href="{{ route('login') }}" style="color: black">Login</a>
+                        <a href="{{ route('register') }}"style="color: black">Register</a>
                     @endauth
                 </div>
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                  Welcome to Our social network
+                <div class="title m-b-md" >
+
                 </div>
 
                 <div class="links">
                     @guest
-                    <a href="{{ route('register') }}" class="btn btn-default">Regester now!</a>
-                    
-                    <a href="{{ route('login') }}"class="btn btn-default">Already a member! login here</a>
                     @else
                     <a href="{{ route('home') }}"class="btn btn-default">Home</a>
                     @endguest
